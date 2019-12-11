@@ -26,6 +26,7 @@ SECRET_KEY = 'dc#ij-i7wh&11(bt5uw#78u0ez0^wszkj&p!+ezt-+*^vh!kkt'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+AUTH_USER_MODEL = 'student.MyUser'
 
 
 # Application definition
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'task2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'student/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

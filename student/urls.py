@@ -2,7 +2,8 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
-from student.views import base,signin, signout, signup, create_assignment, assignment_submission,submitted, delete_assignment, edit_assignment,Assignmentsubmit, student_submitted,submit_button
+from student.views import base,signin, signout, signup, create_assignment, assignment_submission,submitted,\
+    delete_assignment, edit_assignment,Assignmentsubmit, student_submitted,submit_button
 
 app_name = "student"
 

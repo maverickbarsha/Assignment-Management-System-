@@ -1,8 +1,10 @@
 from builtins import property
 
-from django.contrib.auth.models import (AbstractBaseUser,BaseUserManager)
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager)
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin
+
+
 class MyUserManager(BaseUserManager):
     def create_user(self, email, password=None):
         if not email:
@@ -17,24 +19,24 @@ class MyUserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password):
-        user = self.create_user(email )
+        user = self.create_user(email)
         user.is_admin = True
         user.set_password(password)
         user.save(using=self._db)
         return user
 
+
 class MyUser(AbstractBaseUser):
-    email = models.EmailField(max_length=255,unique=True)
-    full_name = models.CharField(max_length=250,blank=True,null=True)
+    email = models.EmailField(max_length=255, unique=True)
+    full_name = models.CharField(max_length=250, blank=True, null=True)
     teacher = models.BooleanField(default=True)
     student = models.BooleanField(default=False)
-    college_name = models.CharField(max_length=225,blank=True,null=True)
+    college_name = models.CharField(max_length=225, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     objects = MyUserManager()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
-
 
     def __str__(self):
         return self.email
@@ -60,9 +62,10 @@ class MyUser(AbstractBaseUser):
     def is_student(self):
         return self.student
 
+
 class Assignment(models.Model):
     title = models.CharField(max_length=255)
-    upload = models.FileField(upload_to='assignments/', null=True, default="No file uploaded",blank=True)
+    upload = models.FileField(upload_to='assignments/', null=True, default="No file uploaded", blank=True)
     due_date = models.DateField()
     created_at = models.DateField(auto_now_add=True)
     last_updated = models.DateField(auto_now=True)
@@ -78,9 +81,10 @@ class Assignment(models.Model):
     def __str__(self):
         return self.title
 
+
 class Submission(models.Model):
     description = models.CharField(max_length=100, null=True, blank=True, default="No description")
-    upload = models.FileField(upload_to='submissions/',blank=True)
+    upload = models.FileField(upload_to='submissions/', blank=True)
     submitted_at = models.DateField(default=None)
     last_updated = models.DateField(auto_now=True)
     active = models.BooleanField(default=True)
@@ -97,4 +101,3 @@ class Submission(models.Model):
 
     def __str__(self):
         return str(self.assignment_id)
-
