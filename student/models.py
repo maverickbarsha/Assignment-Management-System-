@@ -2,7 +2,7 @@ from builtins import property
 
 from django.contrib.auth.models import (AbstractBaseUser,BaseUserManager)
 from django.db import models
-
+from django.contrib.auth.models import PermissionsMixin
 class MyUserManager(BaseUserManager):
     def create_user(self, email, password=None):
         if not email:
